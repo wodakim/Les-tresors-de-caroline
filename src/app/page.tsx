@@ -28,7 +28,7 @@ export default async function Home() {
 
         <div className="relative z-20 text-center space-y-6 max-w-3xl px-4">
           <div className="w-40 h-40 mx-auto relative rounded-full border-4 border-brand-gold shadow-2xl overflow-hidden bg-white mb-6">
-             <Image src="/logo.png" alt="Logo" fill className="object-cover" />
+             <Image src="/logo.png" alt="Logo" fill className="object-cover p-1" />
           </div>
           <h1 className="font-serif text-5xl md:text-7xl text-white font-bold drop-shadow-lg">
             Les Trésors de Caroline

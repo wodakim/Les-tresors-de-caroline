@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Product } from "@/lib/db";
+import { useAuth } from "@/context/AuthContext";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { Plus, Edit, Trash2, X, Image as ImageIcon, Save, LogOut } from "lucide-react";
@@ -9,6 +10,7 @@ import { useRouter } from "next/navigation";
 
 export default function AdminClient() {
   const router = useRouter();
+  const { user, logout, isLoading: authLoading } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -29,13 +31,14 @@ export default function AdminClient() {
   };
 
   useEffect(() => {
-    // Basic protection check
-    if (!document.cookie.includes("admin=true")) {
-      router.push("/account");
-      return;
+    if (!authLoading) {
+      if (!user?.isAdmin) {
+        router.push("/account");
+        return;
+      }
+      fetchProducts();
     }
-    fetchProducts();
-  }, [router]);
+  }, [user, authLoading, router]);
 
   const handleDelete = async (id: string) => {
     if (confirm("Êtes-vous sûr de vouloir supprimer ce produit ?")) {
@@ -87,7 +90,7 @@ export default function AdminClient() {
   };
 
   const handleLogout = () => {
-    document.cookie = "admin=; Max-Age=0; path=/";
+    logout();
     router.push("/account");
   };
 
@@ -143,12 +146,41 @@ export default function AdminClient() {
              onChange={(e) => setCurrentProduct({...currentProduct, material: e.target.value})}
           />
 
-          {/* Image URL Mock */}
-          <Input
-             label="URL de l'image"
-             value={currentProduct.image}
-             onChange={(e) => setCurrentProduct({...currentProduct, image: e.target.value})}
-          />
+          <div className="space-y-1">
+            <label className="text-sm font-serif text-brand-purple font-medium ml-1">Image du produit</label>
+            <div className="flex items-center gap-4">
+                {currentProduct.image && (
+                    <div className="w-20 h-24 relative rounded overflow-hidden border border-gray-200">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={currentProduct.image} alt="Aperçu" className="object-cover w-full h-full" />
+                    </div>
+                )}
+                <label className="cursor-pointer bg-white border border-brand-gold/30 hover:border-brand-purple text-brand-purple px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                    <ImageIcon size={18} />
+                    <span>Choisir une image...</span>
+                    <input
+                      type="file"
+                      className="hidden"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          if (file.size > 800000) {
+                              alert("L'image est trop volumineuse (max 800kb pour la démo)");
+                              return;
+                          }
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setCurrentProduct({ ...currentProduct, image: reader.result as string });
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                </label>
+            </div>
+            <p className="text-xs text-gray-400 ml-1">Formats acceptés: JPG, PNG, WEBP (Max 800kb)</p>
+          </div>
 
           {/* Simple Size/Color inputs as comma separated strings for MVP */}
           <Input

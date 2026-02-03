@@ -6,6 +6,8 @@ import { Product, Review } from "@/lib/db";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import Button from "@/components/ui/Button";
+import MathCaptcha from "@/components/ui/MathCaptcha";
+import { sanitizeInput } from "@/lib/security";
 import { Star, ShoppingBag, Truck, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
@@ -26,10 +28,25 @@ export default function ProductDetailClient({ product, reviews }: ProductDetailC
   // Mock Review Form State
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
 
   const handleAddToCart = () => {
     addItem(product, selectedSize, selectedColor);
     alert("Produit ajouté au panier !");
+  };
+
+  const handleSubmitReview = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isCaptchaValid) {
+        alert("Veuillez résoudre la question de sécurité.");
+        return;
+    }
+    const cleanComment = sanitizeInput(comment);
+    // Here we would call API to post review
+    console.log("Submitting review:", { rating, cleanComment });
+    alert("Votre avis a été publié !");
+    setComment("");
+    setRating(5);
   };
 
   return (
@@ -189,7 +206,7 @@ export default function ProductDetailClient({ product, reviews }: ProductDetailC
               <div className="bg-brand-light p-8 rounded-2xl">
                 <h3 className="font-serif text-xl font-bold text-brand-purple mb-6">Laisser un avis</h3>
                 {user ? (
-                  <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                  <form className="space-y-4" onSubmit={handleSubmitReview}>
                     <div className="flex gap-2 mb-2">
                        {[1, 2, 3, 4, 5].map((s) => (
                          <button key={s} type="button" onClick={() => setRating(s)} className="text-yellow-500">
@@ -210,6 +227,9 @@ export default function ProductDetailClient({ product, reviews }: ProductDetailC
                         <input type="file" className="hidden" />
                       </label>
                     </div>
+
+                    <MathCaptcha onVerify={setIsCaptchaValid} />
+
                     <Button type="submit">Publier l&apos;avis</Button>
                   </form>
                 ) : (

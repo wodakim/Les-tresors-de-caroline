@@ -32,10 +32,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = (email: string) => {
     // Mock login logic
+    const isAdmin = email === 'admin@lestresorsdecaroline.com' || email === 'admin@caroline.com';
     const newUser = {
-      name: 'Caroline Customer',
+      name: isAdmin ? 'Admin' : 'Caroline Customer',
       email: email,
-      isAdmin: email === 'admin@caroline.com'
+      isAdmin: isAdmin
     };
     setUser(newUser);
     localStorage.setItem('user', JSON.stringify(newUser));

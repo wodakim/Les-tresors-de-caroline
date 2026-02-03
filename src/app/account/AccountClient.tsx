@@ -22,8 +22,7 @@ export default function AccountClient() {
     e.preventDefault();
     // Admin Check Simulation
     if (email === "admin@lestresorsdecaroline.com" && password === "admin") {
-      // Set a cookie or local storage token ideally, but for now just redirect
-      document.cookie = "admin=true; path=/";
+      login(email);
       router.push("/admin");
       return;
     }
