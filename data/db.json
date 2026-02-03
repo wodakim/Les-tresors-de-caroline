@@ -1,0 +1,142 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Robe de Soirée Impériale",
+      "description": "Une robe longue en satin violet, parfaite pour les galas.",
+      "price": 129,
+      "category": "Robes",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "colors": [
+        "Violet",
+        "Or"
+      ],
+      "material": "Satin",
+      "image": "https://placehold.co/600x800/612251/FFF?text=Robe+Imperiale"
+    },
+    {
+      "id": "2",
+      "name": "Blouse en Soie Dorée",
+      "description": "Légèreté et élégance pour ce chemisier aux reflets d'or.",
+      "price": 89.5,
+      "category": "Hauts",
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Or",
+        "Blanc"
+      ],
+      "material": "Soie",
+      "image": "https://placehold.co/600x800/c5a69d/FFF?text=Blouse+Soie"
+    },
+    {
+      "id": "3",
+      "name": "Pantalon Palace Chic",
+      "description": "Coupe large et fluide, confort absolu et style garanti.",
+      "price": 110,
+      "category": "Bas",
+      "sizes": [
+        "36",
+        "38",
+        "40",
+        "42"
+      ],
+      "colors": [
+        "Noir",
+        "Violet Foncé"
+      ],
+      "material": "Lin",
+      "image": "https://placehold.co/600x800/3a1430/FFF?text=Pantalon+Palace"
+    },
+    {
+      "id": "4",
+      "name": "Veste Blazer Structurée",
+      "description": "La pièce maîtresse de votre garde-robe professionnelle.",
+      "price": 159.9,
+      "category": "Vestes",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "colors": [
+        "Rose Poudré",
+        "Gris"
+      ],
+      "material": "Coton",
+      "image": "https://placehold.co/600x800/946470/FFF?text=Veste+Blazer"
+    },
+    {
+      "id": "5",
+      "name": "Jupe Midi Plissée",
+      "description": "Une jupe intemporelle qui danse avec vos mouvements.",
+      "price": 75,
+      "category": "Bas",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "colors": [
+        "Or",
+        "Noir"
+      ],
+      "material": "Polyester Recyclé",
+      "image": "https://placehold.co/600x800/D4AF37/FFF?text=Jupe+Midi"
+    },
+    {
+      "id": "6",
+      "name": "Top Dentelle Raffiné",
+      "description": "Détails subtils et féminité exacerbée.",
+      "price": 45,
+      "category": "Hauts",
+      "sizes": [
+        "XS",
+        "S",
+        "M"
+      ],
+      "colors": [
+        "Blanc",
+        "Rose"
+      ],
+      "material": "Dentelle",
+      "image": "https://placehold.co/600x800/f6dade/612251?text=Top+Dentelle"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "r1",
+      "productId": "1",
+      "user": "Sophie Martin",
+      "rating": 5,
+      "comment": "Absolument sublime ! La coupe est parfaite.",
+      "date": "2023-10-15"
+    },
+    {
+      "id": "r2",
+      "productId": "2",
+      "user": "Claire Dubois",
+      "rating": 4,
+      "comment": "Très belle matière, mais taille un peu grand.",
+      "date": "2023-11-02"
+    }
+  ],
+  "users": [
+    {
+      "id": "admin",
+      "email": "admin@lestresorsdecaroline.com",
+      "password": "admin",
+      "role": "admin",
+      "name": "Caroline Mouchard"
+    }
+  ]
+}

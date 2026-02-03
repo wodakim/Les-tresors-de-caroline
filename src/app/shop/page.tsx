@@ -1,0 +1,7 @@
+import { getProducts } from "@/lib/db";
+import ShopClient from "./ShopClient";
+
+export default async function ShopPage() {
+  const products = await getProducts();
+  return <ShopClient initialProducts={products} />;
+}
